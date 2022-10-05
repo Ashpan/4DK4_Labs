@@ -46,8 +46,8 @@
 int
 main(void)
 {
-  Simulation_Run_Ptr simulation_run, simulation_run2;
-  Simulation_Run_Data data, data2;
+  Simulation_Run_Ptr simulation_run;
+  Simulation_Run_Data data;
 
   /*
    * Declare and initialize our random number generator seeds defined in
@@ -66,14 +66,12 @@ main(void)
   while ((random_seed = RANDOM_SEEDS[j++]) != 0) {
 
     simulation_run = simulation_run_new(); /* Create a new simulation run. */
-    simulation_run2 = simulation_run_new(); /* Create a new simulation run. */
 
     /*
      * Set the simulation_run data pointer to our data object.
      */
 
     simulation_run_attach_data(simulation_run, (void *) & data);
-    simulation_run_attach_data(simulation_run2, (void *) & data2);
 
     /* 
      * Initialize the simulation_run data variables, declared in main.h.
@@ -111,8 +109,6 @@ main(void)
 
     schedule_packet_arrival_event(simulation_run, 
 				  simulation_run_get_time(simulation_run));
-    schedule_packet_arrival_event(simulation_run2, 
-				  simulation_run_get_time(simulation_run2));
 
     /* 
      * Execute events until we are finished. 
@@ -120,16 +116,13 @@ main(void)
 
     while(data.number_of_packets_processed < RUNLENGTH) {
       simulation_run_execute_event(simulation_run);
-      simulation_run_execute_event(simulation_run2);
     }
 
     /*
      * Output results and clean up after ourselves.
      */
     output_results_excel(simulation_run);
-    output_results_excel(simulation_run2);
     cleanup_memory(simulation_run);
-    cleanup_memory(simulation_run2);
   }
 
   // getchar();   /* Pause before finishing. */
