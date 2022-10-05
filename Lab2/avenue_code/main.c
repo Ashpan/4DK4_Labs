@@ -82,11 +82,6 @@ main(void)
     data.number_of_packets_processed = 0;
     data.accumulated_delay = 0.0;
     data.random_seed = random_seed;
-    data2.blip_counter = 0;
-    data2.arrival_count = 0;
-    data2.number_of_packets_processed = 0;
-    data2.accumulated_delay = 0.0;
-    data2.random_seed = random_seed;
  
     /* 
      * Create the packet buffer and transmission link, declared in main.h.
@@ -94,8 +89,7 @@ main(void)
 
     data.buffer = fifoqueue_new();
     data.link   = server_new();
-    data2.buffer = fifoqueue_new();
-    data2.link   = server_new();
+    data.link2   = server_new();
 
     /* 
      * Set the random number generator seed for this run.
