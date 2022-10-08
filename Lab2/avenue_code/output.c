@@ -1,4 +1,3 @@
-
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -44,20 +43,20 @@ output_progress_msg_to_screen(Simulation_Run_Ptr simulation_run)
   data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
 
   data->blip_counter++;
-
+  long total_packets_processed = data->number_of_packets_processed_1 + data->number_of_packets_processed_2 + data->number_of_packets_processed_3;
   if((data->blip_counter >= BLIPRATE)
      ||
-     (data->number_of_packets_processed >= RUNLENGTH)) {
+     (total_packets_processed >= RUNLENGTH)) {
 
     data->blip_counter = 0;
 
     percentage_done =
-      100 * (double) data->number_of_packets_processed/RUNLENGTH;
+      100 * (double) total_packets_processed/RUNLENGTH;
 
     printf("%3.0f%% ", percentage_done);
 
     printf("Successfully Xmtted Pkts  = %ld (Arrived Pkts = %ld) \r", 
-	   data->number_of_packets_processed, data->arrival_count);
+	   total_packets_processed, (data->arrival_count_1 + data->arrival_count_2 + data->arrival_count_3));
 
     fflush(stdout);
   }
@@ -72,26 +71,32 @@ output_progress_msg_to_screen(Simulation_Run_Ptr simulation_run)
 void
 output_results(Simulation_Run_Ptr simulation_run)
 {
-  double xmtted_fraction;
+  double xmtted_fraction_1, xmtted_fraction_2, xmtted_fraction_3;
   Simulation_Run_Data_Ptr data;
 
   data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
 
   printf("\n");
   printf("Random Seed = %d \n", data->random_seed);
-  printf("Packet arrival count = %ld \n", data->arrival_count);
+  printf("Packet arrival count 1 = %ld \n", data->arrival_count_1);
+  printf("Packet arrival count 2 = %ld \n", data->arrival_count_2);
+  printf("Packet arrival count 3 = %ld \n", data->arrival_count_3);
 
-  xmtted_fraction = (double) data->number_of_packets_processed /
-    data->arrival_count;
+  xmtted_fraction_1 = (double) data->number_of_packets_processed_1 / data->arrival_count_1;
+  xmtted_fraction_2 = (double) data->number_of_packets_processed_2 / data->arrival_count_2;
+  xmtted_fraction_3 = (double) data->number_of_packets_processed_3 / data->arrival_count_3;
 
-  printf("Transmitted packet count  = %ld (Service Fraction = %.5f)\n",
-	 data->number_of_packets_processed, xmtted_fraction);
 
   printf("Arrival rate = %.3f packets/second \n", (double) PACKET_ARRIVAL_RATE);
+  printf("Transmitted packet count 1  = %ld (Service Fraction = %.5f)\n", data->number_of_packets_processed_1, xmtted_fraction_1);
 
-  printf("Mean Delay (msec) = %.2f \n",
-	 1e3*data->accumulated_delay/data->number_of_packets_processed);
-
+  printf("Arrival rate = %.3f packets/second \n", (double) PACKET_ARRIVAL_RATE_2);
+  printf("Transmitted packet count 2  = %ld (Service Fraction = %.5f)\n", data->number_of_packets_processed_2, xmtted_fraction_2);
+  printf("Transmitted packet count 3  = %ld (Service Fraction = %.5f)\n", data->number_of_packets_processed_3, xmtted_fraction_3);
+  
+  printf("Mean Delay 1 (msec) = %.2f \n", 1e3*data->accumulated_delay_1/data->number_of_packets_processed_1);
+  printf("Mean Delay 2 (msec) = %.2f \n", 1e3*data->accumulated_delay_2/data->number_of_packets_processed_2);
+  printf("Mean Delay 3 (msec) = %.2f \n", 1e3*data->accumulated_delay_3/data->number_of_packets_processed_3);
   printf("\n");
 }
 
@@ -99,15 +104,17 @@ output_results(Simulation_Run_Ptr simulation_run)
 void
 output_results_excel(Simulation_Run_Ptr simulation_run)
 {
+  printf("\n\n");
   Simulation_Run_Data_Ptr data;
 
   data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
 
-  printf("%d, ", data->random_seed);
-  printf("%.3f, ", (double) PACKET_ARRIVAL_RATE);
-  printf("%.2f \n",
-	 1e3*data->accumulated_delay/data->number_of_packets_processed);
+  // printf("%d, ", data->random_seed);
+  // printf("%.3f, ", (double) PACKET_ARRIVAL_RATE);
+  printf("%.2f, ", 1e3*data->accumulated_delay_1/data->number_of_packets_processed_1);
+  printf("%.2f, ", 1e3*data->accumulated_delay_2/data->number_of_packets_processed_2);
+  printf("%.2f \n", 1e3*data->accumulated_delay_3/data->number_of_packets_processed_3);
+
+  // printf("%.2f \n",
+	//  1e3*data->accumulated_delay/data->number_of_packets_processed);
 }
-
-
-
