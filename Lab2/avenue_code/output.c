@@ -96,18 +96,4 @@ output_results(Simulation_Run_Ptr simulation_run)
 }
 
 
-void
-output_results_excel(Simulation_Run_Ptr simulation_run)
-{
-  Simulation_Run_Data_Ptr data;
-
-  data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
-
-  printf("%d, ", data->random_seed);
-  printf("%.3f, ", (double) PACKET_ARRIVAL_RATE);
-  printf("%.2f \n",
-	 1e3*data->accumulated_delay/data->number_of_packets_processed);
-}
-
-
 

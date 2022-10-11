@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -114,10 +115,23 @@ main(void)
     /*
      * Output results and clean up after ourselves.
      */
-    output_results_excel(simulation_run);
+
+    output_results(simulation_run);
     cleanup_memory(simulation_run);
   }
 
-  // getchar();   /* Pause before finishing. */
+  getchar();   /* Pause before finishing. */
   return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+

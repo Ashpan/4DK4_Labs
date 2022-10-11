@@ -89,11 +89,10 @@ packet_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
    * Schedule the next packet arrival. Independent, exponentially distributed
    * interarrival times gives us Poisson process arrivals.
    */
-  // unsigned ARRIVAL_RATES[] = {PACKET_ARRIVAL_RATE_LIST, 0};
-  unsigned arrival_rate = PACKET_ARRIVAL_RATE;
-    schedule_packet_arrival_event(simulation_run,
-    simulation_run_get_time(simulation_run) +
-    exponential_generator((double) 1/arrival_rate));
+
+  schedule_packet_arrival_event(simulation_run,
+			simulation_run_get_time(simulation_run) +
+			exponential_generator((double) 1/PACKET_ARRIVAL_RATE));
 }
 
 

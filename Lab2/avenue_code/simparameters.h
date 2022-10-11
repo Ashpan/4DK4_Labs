@@ -28,14 +28,13 @@
 
 /******************************************************************************/
 
-#define PACKET_ARRIVAL_RATE 2000 /* packets per second */
-// #define PACKET_ARRIVAL_RATE_LIST 200 /* packets per second */
-#define PACKET_LENGTH 500 /* bits */
+#define PACKET_ARRIVAL_RATE 400 /* packets per second */
+#define PACKET_LENGTH 1e3 /* bits */
 #define LINK_BIT_RATE 1e6 /* bits per second */
 #define RUNLENGTH 10e6 /* packets */
 
 /* Comma separated list of random seeds to run. */
-#define RANDOM_SEED_LIST 400185326, 400114166, 400189670, 400189671, 400189672, 400189673, 400189674, 400189675, 400189676, 400189677
+#define RANDOM_SEED_LIST 333333, 444444
 
 #define PACKET_XMT_TIME ((double) PACKET_LENGTH/LINK_BIT_RATE)
 #define BLIPRATE (RUNLENGTH/1000)
