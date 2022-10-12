@@ -91,7 +91,9 @@ output_results(Simulation_Run_Ptr simulation_run)
 
   printf("Mean Delay (msec) = %.2f \n",
 	 1e3*data->accumulated_delay/data->number_of_packets_processed);
-
+  printf("delay counter %d\n", data->delay_counter);
+  printf("total %d\n", data->total);
+  printf("percent over 20msec = %.2f \n", 100*(double)data->delay_counter/(double)data->number_of_packets_processed);
   printf("\n");
 }
 

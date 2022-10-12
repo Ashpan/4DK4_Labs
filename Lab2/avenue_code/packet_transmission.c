@@ -78,6 +78,15 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run, void * link)
   this_packet = (Packet_Ptr) server_get(link);
 
   /* Collect statistics. */
+  double current_delay = (simulation_run_get_time(simulation_run) - this_packet->arrive_time);
+  // printf("Current packet delay: %.2f\n", 1e3*current_delay);
+  data->total++;
+  if (1e3*current_delay > 20) {
+    data->delay_counter++;
+  }
+
+
+
   data->number_of_packets_processed++;
   data->accumulated_delay += simulation_run_get_time(simulation_run) - 
     this_packet->arrive_time;

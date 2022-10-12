@@ -82,6 +82,8 @@ main(void)
     data.arrival_count = 0;
     data.number_of_packets_processed = 0;
     data.accumulated_delay = 0.0;
+    data.delay_counter = 0;
+    data.total = 0;
     data.random_seed = random_seed;
  
     /* 
@@ -120,7 +122,7 @@ main(void)
     cleanup_memory(simulation_run);
   }
 
-  getchar();   /* Pause before finishing. */
+//   getchar();   /* Pause before finishing. */
   return 0;
 }
 
