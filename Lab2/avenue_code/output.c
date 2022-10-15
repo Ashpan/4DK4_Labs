@@ -46,7 +46,7 @@ output_progress_msg_to_screen(Simulation_Run_Ptr simulation_run)
   data->blip_counter++;
 
   if((data->blip_counter >= BLIPRATE)
-     || // TODO: UNDO ALL number_of_packets_processed CHANGES
+     ||
      (data->number_of_packets_processed >= RUNLENGTH)) {
 
     data->blip_counter = 0;
