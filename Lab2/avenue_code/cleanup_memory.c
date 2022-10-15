@@ -26,6 +26,7 @@
 #include "simlib.h"
 #include "main.h"
 #include "cleanup_memory.h"
+#include <stdio.h>
 
 /******************************************************************************/
 
@@ -54,6 +55,7 @@ cleanup_memory (Simulation_Run_Ptr simulation_run)
   xfree(buffer);
 
   simulation_run_free_memory(simulation_run); /* Clean up the simulation_run. */
+  printf("\nDone and dusted.");
 }
 
 

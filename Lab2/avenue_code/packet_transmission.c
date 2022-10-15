@@ -83,7 +83,7 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run, void * link)
     this_packet->arrive_time;
 
   /* Output activity blip every so often. */
-  // output_progress_msg_to_screen(simulation_run);
+  output_progress_msg_to_screen(simulation_run);
 
   /* This packet is done ... give the memory back. */
   xfree((void *) this_packet);
@@ -100,7 +100,7 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run, void * link)
 }
 
 /*
- * This function ititiates the transmission of the packet passed to the
+ * This function initiates the transmission of the packet passed to the
  * function. This is done by placing the packet in the server. The packet
  * transmission end event for this packet is then scheduled.
  */
@@ -126,10 +126,14 @@ start_transmission_on_link(Simulation_Run_Ptr simulation_run,
  * simparameters.h
  */
 
-double
-get_packet_transmission_time(void)
+double get_packet_transmission_time(void)
 {
   return ((double) PACKET_XMT_TIME);
+}
+
+double get_voice_packet_transmission_time(void)
+{
+  return ((double) VOICE_PACKET_XMT_TIME);
 }
 
 

@@ -55,6 +55,14 @@ typedef struct _packet_
   Packet_Status status;
 } Packet, * Packet_Ptr;
 
+// typedef struct _voice_packet_ {
+//   double arrive_time;
+//   double service_time;
+//   int source_id;
+//   int destination_id;
+//   Packet_Status status;
+// } VoicePacket, * VoicePacket_Ptr;
+
 /*
  * Function prototypes
  */

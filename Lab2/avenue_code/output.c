@@ -46,7 +46,7 @@ output_progress_msg_to_screen(Simulation_Run_Ptr simulation_run)
   data->blip_counter++;
 
   if((data->blip_counter >= BLIPRATE)
-     ||
+     || // TODO: UNDO ALL number_of_packets_processed CHANGES
      (data->number_of_packets_processed >= RUNLENGTH)) {
 
     data->blip_counter = 0;
@@ -87,26 +87,13 @@ output_results(Simulation_Run_Ptr simulation_run)
   printf("Transmitted packet count  = %ld (Service Fraction = %.5f)\n",
 	 data->number_of_packets_processed, xmtted_fraction);
 
-  printf("Arrival rate = %.3f packets/second \n", (double) PACKET_ARRIVAL_RATE);
+  printf("Data packet arrival rate = %.3f packets/second \n", (double) PACKET_ARRIVAL_RATE);
+  printf("Voice packet arrival rate = %.3f packets/second \n", (double) VOICE_PACKET_ARRIVAL_RATE);
 
-  printf("Mean Delay (msec) = %.2f \n",
+  printf("Mean data packet delay (msec) = %.2f \n",
 	 1e3*data->accumulated_delay/data->number_of_packets_processed);
 
   printf("\n");
-}
-
-
-void
-output_results_excel(Simulation_Run_Ptr simulation_run)
-{
-  Simulation_Run_Data_Ptr data;
-
-  data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
-
-  printf("%d, ", data->random_seed);
-  printf("%.3f, ", (double) PACKET_ARRIVAL_RATE);
-  printf("%.2f \n",
-	 1e3*data->accumulated_delay/data->number_of_packets_processed);
 }
 
 
