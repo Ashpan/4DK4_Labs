@@ -58,7 +58,7 @@ long int schedule_voice_packet_arrival_event(Simulation_Run_Ptr simulation_run,
   event.description = "Voice Packet Arrival";
   event.function = voice_packet_arrival_event;
   event.attachment = (void *) NULL;
-
+  
   return simulation_run_schedule_event(simulation_run, event, event_time);
 }
 
@@ -83,6 +83,7 @@ void data_packet_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
   new_packet->arrive_time = simulation_run_get_time(simulation_run);
   new_packet->service_time = get_packet_transmission_time();
   new_packet->status = WAITING;
+  new_packet->source_id = DATA_PACKET;
 
   /* 
    * Start transmission if the data link is free. Otherwise put the packet into
@@ -118,6 +119,7 @@ void voice_packet_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
   new_packet->arrive_time = simulation_run_get_time(simulation_run);
   new_packet->service_time = get_voice_packet_transmission_time();
   new_packet->status = WAITING;
+  new_packet->source_id = VOICE_PACKET;
 
   /* 
    * Start transmission if the data link is free. Otherwise put the packet into

@@ -26,6 +26,9 @@
 #ifndef _PACKET_TRANSMISSION_H_
 #define _PACKET_TRANSMISSION_H_
 
+#define DATA_PACKET  (0)
+#define VOICE_PACKET (1)
+
 /******************************************************************************/
 
 #include "main.h"

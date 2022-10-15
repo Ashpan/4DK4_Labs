@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/main.h
+simlib.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/simlib.h
+simparameters.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/simparameters.h
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/packet_arrival.c
+math.h
+-
+stdio.h
+-
+main.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/main.h
+packet_transmission.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/packet_transmission.h
+packet_arrival.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/packet_arrival.h
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/packet_arrival.h
+simlib.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/simlib.h
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/packet_transmission.h
+main.h
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/main.h
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/simlib.h
+stdlib.h
+-
+
+/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/simparameters.h
+

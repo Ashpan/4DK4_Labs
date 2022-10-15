@@ -78,10 +78,17 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run, void * link)
   this_packet = (Packet_Ptr) server_get(link);
 
   /* Collect statistics. */
-  data->number_of_packets_processed++;
-  data->accumulated_delay += simulation_run_get_time(simulation_run) - 
+  switch (this_packet->source_id) {
+    case DATA_PACKET:
+    data->number_of_data_packets_processed++;
+    data->accumulated_data_packet_delay += simulation_run_get_time(simulation_run) - 
     this_packet->arrive_time;
-
+    case VOICE_PACKET:
+    data->number_of_voice_packets_processed++;
+    data->accumulated_voice_packet_delay += simulation_run_get_time(simulation_run) - 
+    this_packet->arrive_time;
+  }
+  
   /* Output activity blip every so often. */
   output_progress_msg_to_screen(simulation_run);
 

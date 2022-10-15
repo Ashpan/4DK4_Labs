@@ -80,8 +80,10 @@ main(void)
     
     data.blip_counter = 0;
     data.arrival_count = 0;
-    data.number_of_packets_processed = 0;
-    data.accumulated_delay = 0.0;
+    data.number_of_data_packets_processed = 0;
+    data.number_of_voice_packets_processed = 0;
+    data.accumulated_data_packet_delay = 0.0;
+    data.accumulated_voice_packet_delay = 0.0;
     data.random_seed = random_seed;
  
     /* 
@@ -111,7 +113,7 @@ main(void)
      * Execute events until we are finished. 
      */
 
-    while(data.number_of_packets_processed < RUNLENGTH) {
+    while((data.number_of_data_packets_processed + data.number_of_voice_packets_processed) < RUNLENGTH) {
       simulation_run_execute_event(simulation_run);
     }
 
