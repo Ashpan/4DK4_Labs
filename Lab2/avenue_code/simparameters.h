@@ -28,7 +28,7 @@
 
 /******************************************************************************/
 
-#define PACKET_ARRIVAL_RATE 400 /* packets per second */
+#define PACKET_ARRIVAL_RATE 100 /* packets per second */
 #define VOICE_PACKET_ARRIVAL_RATE 20e3 /* voice packets per second */
 #define PACKET_LENGTH 1e3 /* bits */
 #define VOICE_PACKET_LENGTH 1776 /* bits */

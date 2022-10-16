@@ -1,3 +1,0 @@
-/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/CMakeFiles/rebuild_cache.dir
-/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/CMakeFiles/edit_cache.dir
-/media/psf/Home/Downloads/4DK4_Labs/Lab2/avenue_code/CMakeFiles/run.dir
