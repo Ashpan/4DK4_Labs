@@ -26,6 +26,7 @@
 /*******************************************************************************/
 
 #include <stdio.h>
+#include <math.h>
 #include "simparameters.h"
 #include "main.h"
 #include "output.h"
@@ -60,7 +61,7 @@ void output_progress_msg_to_screen(Simulation_Run_Ptr this_simulation_run)
 
 /*******************************************************************************/
 
-void output_results(Simulation_Run_Ptr this_simulation_run)
+void output_results(Simulation_Run_Ptr this_simulation_run, int current_channels)
 {
   double xmtted_fraction;
   Simulation_Run_Data_Ptr sim_data;
@@ -71,6 +72,7 @@ void output_results(Simulation_Run_Ptr this_simulation_run)
 
   printf("random seed = %d \n", sim_data->random_seed);
   printf("call arrival count = %ld \n", sim_data->call_arrival_count);
+  printf("trunks = %d \n", current_channels);
   printf("blocked call count = %ld \n", sim_data->blocked_call_count);
 
   xmtted_fraction = (double) (sim_data->call_arrival_count -
@@ -82,5 +84,27 @@ void output_results(Simulation_Run_Ptr this_simulation_run)
   printf("\n");
 }
 
+void output_results_excel(Simulation_Run_Ptr this_simulation_run, int current_channels, int arrival_rate)
+{
+  double xmtted_fraction;
+  Simulation_Run_Data_Ptr sim_data;
+
+  sim_data = (Simulation_Run_Data_Ptr) simulation_run_data(this_simulation_run);
+
+  printf("%d \t\t", sim_data->random_seed);
+  printf("%d \t\t", arrival_rate);
+  printf("%d \t", current_channels);
+
+  xmtted_fraction = (double) (sim_data->call_arrival_count -
+      sim_data->blocked_call_count)/sim_data->call_arrival_count;
+
+  printf("%.5f \t%.5f \t\t",
+	 1-xmtted_fraction, xmtted_fraction);
+
+  // printf("%f, %li\n", sim_data->accumulated_call_time, sim_data->call_arrival_count);
+  double average_call_time = (double) sim_data->accumulated_call_time/(double) sim_data->number_of_calls_processed;
+  double offered_load = average_call_time * arrival_rate;
+  printf("%.5f\n", offered_load);
 
 
+}

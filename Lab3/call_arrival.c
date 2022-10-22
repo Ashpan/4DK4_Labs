@@ -38,16 +38,20 @@
 /*
  * Function to schedule a call arrival event. 
  */
-
+int current_channels = 0;
+int current_arrival_rate = 0;
 long int
 schedule_call_arrival_event(Simulation_Run_Ptr simulation_run, 
-			    double event_time)
+			    double event_time, int channels, int arrival_rate)
 {
   Event new_event;
 
   new_event.description = "Call Arrival";
   new_event.function = call_arrival_event;
   new_event.attachment = NULL;
+
+  current_channels = channels;
+  current_arrival_rate = arrival_rate;
 
   return simulation_run_schedule_event(simulation_run, new_event, event_time);
 }
@@ -94,7 +98,7 @@ call_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
 
   /* Schedule the next call arrival. */
   schedule_call_arrival_event(simulation_run,
-	      now + exponential_generator((double) 1/Call_ARRIVALRATE));
+	      now + exponential_generator((double) 1/current_arrival_rate), current_channels, current_arrival_rate);
 }
 
 /*******************************************************************************/
@@ -113,7 +117,7 @@ Channel_Ptr get_free_channel(Simulation_Run_Ptr simulation_run)
   sim_data = simulation_run_data(simulation_run);
   channels = sim_data->channels;
 
-  for (i=0; i<NUMBER_OF_CHANNELS; i++) {
+  for (i=0; i<current_channels; i++) {
     if (server_state(*(channels+i)) == FREE)
       return *(channels+i);
   }

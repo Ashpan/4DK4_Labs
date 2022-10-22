@@ -56,66 +56,66 @@ int main(void)
    * Loop for each random number generator seed, doing a separate
    * simulation_run run for each.
    */
-
+  printf("Random Seed\t Arrival Rate\t Trunks\t Blocking Probability\t Service Fraction\t Erlang\n");
   while ((random_seed = RANDOM_SEEDS[j++]) != 0) {
+    unsigned ARRIVAL_RATES[] = {ARRAY_OF_ARRIVAL_RATES, 0};
+    unsigned arrival_rate;
+    int p=0;
 
-    /* Create a new simulation_run. This gives a clock and eventlist. */
-    simulation_run = simulation_run_new();
-
-    /* Add our data definitions to the simulation_run. */
-    simulation_run_set_data(simulation_run, (void *) & data);
-
-    /* Initialize our simulation_run data variables. */
-    data.blip_counter = 0;
-    data.call_arrival_count = 0;
-    data.calls_processed = 0;
-    data.blocked_call_count = 0;
-    data.number_of_calls_processed = 0;
-    data.accumulated_call_time = 0.0;
-    data.random_seed = random_seed;
-
-    /* Create the channels. */
-    data.channels = (Channel_Ptr *) xcalloc((int) NUMBER_OF_CHANNELS,
-					    sizeof(Channel_Ptr));
-
-    /* Initialize the channels. */
-    for (i=0; i<NUMBER_OF_CHANNELS; i++) {
-      *(data.channels+i) = server_new(); 
-    }
-
-    /* Set the random number generator seed. */
-    random_generator_initialize((unsigned) random_seed);
-
-    /* Schedule the initial call arrival. */
-    schedule_call_arrival_event(simulation_run,
-			simulation_run_get_time(simulation_run) +
-			exponential_generator((double) 1/Call_ARRIVALRATE));
     
-    /* Execute events until we are finished. */
-    while(data.number_of_calls_processed < RUNLENGTH) {
-      simulation_run_execute_event(simulation_run);
-    }
-    
-    /* Print out some results. */
-    output_results(simulation_run);
+    while((arrival_rate = ARRIVAL_RATES[p++]) != 0) {
+      unsigned CHANNELS[] = {ARRAY_OF_CHANNELS, 0};
+      unsigned channels;
+      int x=0;
 
-    /* Clean up memory. */
-    cleanup(simulation_run);
+      while ((channels = CHANNELS[x++]) != 0) {
+
+        // printf("random seed: %d arrival rate: %d, trunks: %d\n", random_seed, arrival_rate, channels);
+        /* Create a new simulation_run. This gives a clock and eventlist. */
+        simulation_run = simulation_run_new();
+
+        /* Add our data definitions to the simulation_run. */
+        simulation_run_set_data(simulation_run, (void *) & data);
+
+        /* Initialize our simulation_run data variables. */
+        data.blip_counter = 0;
+        data.call_arrival_count = 0;
+        data.calls_processed = 0;
+        data.blocked_call_count = 0;
+        data.number_of_calls_processed = 0;
+        data.accumulated_call_time = 0.0;
+        data.random_seed = random_seed;
+
+        /* Create the channels. */
+        data.channels = (Channel_Ptr *) xcalloc((int) channels,
+                  sizeof(Channel_Ptr));
+
+        /* Initialize the channels. */
+        for (i=0; i<channels; i++) {
+          *(data.channels+i) = server_new(); 
+        }
+
+        /* Set the random number generator seed. */
+        random_generator_initialize((unsigned) random_seed);
+
+        /* Schedule the initial call arrival. */
+        schedule_call_arrival_event(simulation_run,
+          simulation_run_get_time(simulation_run) +
+          exponential_generator((double) 1/arrival_rate), channels, arrival_rate);
+        
+        /* Execute events until we are finished. */
+        while(data.number_of_calls_processed < RUNLENGTH) {
+          simulation_run_execute_event(simulation_run);
+        }
+        
+        /* Print out some results. */
+        output_results_excel(simulation_run, channels, arrival_rate);
+
+        /* Clean up memory. */
+        cleanup(simulation_run, channels);
+      }
+    } 
   }
 
-  /* Pause before finishing. */
-  getchar();
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
