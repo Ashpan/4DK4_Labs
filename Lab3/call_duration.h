@@ -43,6 +43,7 @@
 
 double get_call_duration(void);
 
+double get_hang_up_duration(void);
 /*******************************************************************************/
 
 #endif /* packetduration.h */

@@ -80,7 +80,8 @@ void output_results(Simulation_Run_Ptr this_simulation_run, int current_channels
 
   printf("Blocking probability = %.5f (Service fraction = %.5f)\n",
 	 1-xmtted_fraction, xmtted_fraction);
-
+  double dropped = (double) sim_data->number_of_calls_processed/ (double) sim_data->call_arrival_count;
+  printf("Dropped Call Percentage = %.5f", 1-dropped);
   printf("\n");
 }
 

@@ -33,6 +33,7 @@
 #define Call_ARRIVALRATE 3   /* calls/minute */
 #define ARRAY_OF_ARRIVAL_RATES 1,2,3,4,5,6,7,8,9,10
 #define MEAN_CALL_DURATION 3 /* minutes */
+#define MEAN_HANG_UP_DURATION 3 /* minutes */
 #define RUNLENGTH 5e6 /* number of successful calls */
 #define BLIPRATE 1e3
 #define NUMBER_OF_CHANNELS 1

@@ -82,9 +82,11 @@ int main(void)
         data.call_arrival_count = 0;
         data.calls_processed = 0;
         data.blocked_call_count = 0;
+        data.dropped_calls = 0;
         data.number_of_calls_processed = 0;
         data.accumulated_call_time = 0.0;
         data.random_seed = random_seed;
+        data.buffer = fifoqueue_new();
 
         /* Create the channels. */
         data.channels = (Channel_Ptr *) xcalloc((int) channels,
@@ -109,7 +111,7 @@ int main(void)
         }
         
         /* Print out some results. */
-        output_results_excel(simulation_run, channels, arrival_rate);
+        output_results(simulation_run, channels);
 
         /* Clean up memory. */
         cleanup(simulation_run, channels);
