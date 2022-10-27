@@ -1,26 +1,26 @@
 
 /*
- * 
+ *
  * Call Blocking in Circuit Switched Networks
- * 
+ *
  * Copyright (C) 2014 Terence D. Todd
  * Hamilton, Ontario, CANADA
  * todd@mcmaster.ca
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 /*******************************************************************************/
@@ -36,13 +36,14 @@
 /*******************************************************************************/
 
 /*
- * Function to schedule a call arrival event. 
+ * Function to schedule a call arrival event.
  */
 int current_channels = 0;
 int current_arrival_rate = 0;
+int current_hangup_time = 0;
 long int
-schedule_call_arrival_event(Simulation_Run_Ptr simulation_run, 
-			    double event_time, int channels, int arrival_rate)
+schedule_call_arrival_event(Simulation_Run_Ptr simulation_run,
+			    double event_time, int channels, int arrival_rate, int hangup_time)
 {
   Event new_event;
 
@@ -52,7 +53,7 @@ schedule_call_arrival_event(Simulation_Run_Ptr simulation_run,
 
   current_channels = channels;
   current_arrival_rate = arrival_rate;
-
+  current_hangup_time = hangup_time;
   return simulation_run_schedule_event(simulation_run, new_event, event_time);
 }
 
@@ -75,18 +76,18 @@ call_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
   sim_data = simulation_run_data(simulation_run);
   sim_data->call_arrival_count++;
 
-  /* Yes, we found one. Allocate some memory and start the call. */
   new_call = (Call_Ptr) xmalloc(sizeof(Call));
   new_call->arrive_time = now;
+  new_call->hang_up_duration = get_hang_up_duration(current_hangup_time);
   new_call->call_duration = get_call_duration();
-  new_call->hang_up_duration = get_hang_up_duration();
 
-  
   /* See if there is a free channel.*/
   if((free_channel = get_free_channel(simulation_run)) != NULL) {
-    /* Place the call in the queue, if the queue is empty place
-       it in the free channel and schedule its departure. */
+      /* Yes, we found one. Allocate some memory and
+         place the call in the queue, if the queue is empty place
+         it in the free channel and schedule its departure. */
     if(fifoqueue_size(sim_data->buffer) == 0) {
+      sim_data->number_of_calls_processed++;
       server_put(free_channel, (void*) new_call);
       new_call->channel = free_channel;
 
@@ -105,7 +106,7 @@ call_arrival_event(Simulation_Run_Ptr simulation_run, void * ptr)
 
   /* Schedule the next call arrival. */
   schedule_call_arrival_event(simulation_run,
-	      now + exponential_generator((double) 1/current_arrival_rate), current_channels, current_arrival_rate);
+	      now + exponential_generator((double) 1/current_arrival_rate), current_channels, current_arrival_rate, current_hangup_time);
 }
 
 /*******************************************************************************/

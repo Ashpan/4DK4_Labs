@@ -536,7 +536,6 @@ void *
 server_get(Server_Ptr server)
 {
   void *entry;
-
   if (server_state(server) == FREE) {
       printf("Error: Cannot get from free server.\n");
       exit(1);

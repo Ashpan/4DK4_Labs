@@ -13,13 +13,13 @@ def max_offered_load(channels):
         if blocking_probability > current_blocking_probability and blocking_probability < 0.01:
             current_blocking_probability = blocking_probability
             offered_load += 0.05
+    print({"numerator": numerator, "denominator": denominator})
     return "{:d}\t\t{:.4f}".format(channels, offered_load)
 
 def main():
     print("Channels\tOffered Load")
     for channels in range(1, 100):
         print(max_offered_load(channels))
-
 
 if __name__ == "__main__":
     main()

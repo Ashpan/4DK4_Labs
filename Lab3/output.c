@@ -1,26 +1,26 @@
 
 /*
- * 
+ *
  * Call Blocking in Circuit Switched Networks
- * 
+ *
  * Copyright (C) 2014 Terence D. Todd
  * Hamilton, Ontario, CANADA
  * todd@mcmaster.ca
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 /*******************************************************************************/
@@ -52,7 +52,6 @@ void output_progress_msg_to_screen(Simulation_Run_Ptr this_simulation_run)
 	100 * (double) sim_data->number_of_calls_processed/RUNLENGTH;
 
       printf("%3.0f%% ", percentagedone);
-
       printf("Call Count = %ld \r", sim_data->number_of_calls_processed);
 
       fflush(stdout);
@@ -80,32 +79,30 @@ void output_results(Simulation_Run_Ptr this_simulation_run, int current_channels
 
   printf("Blocking probability = %.5f (Service fraction = %.5f)\n",
 	 1-xmtted_fraction, xmtted_fraction);
-  double dropped = (double) sim_data->number_of_calls_processed/ (double) sim_data->call_arrival_count;
-  printf("Dropped Call Percentage = %.5f", 1-dropped);
+  double dropped = (double) sim_data->dropped_calls/ (double) sim_data->call_arrival_count;
+  printf("Dropped Call Percentage = %.5f%%", dropped*100);
   printf("\n");
 }
 
-void output_results_excel(Simulation_Run_Ptr this_simulation_run, int current_channels, int arrival_rate)
+void output_results_excel(Simulation_Run_Ptr this_simulation_run, int current_channels, int arrival_rate, int hangup_time)
 {
   double xmtted_fraction;
   Simulation_Run_Data_Ptr sim_data;
 
   sim_data = (Simulation_Run_Data_Ptr) simulation_run_data(this_simulation_run);
 
-  printf("%d \t\t", sim_data->random_seed);
-  printf("%d \t\t", arrival_rate);
-  printf("%d \t", current_channels);
+  printf("%d\t\t", current_channels);
+  printf("%d\t\t", hangup_time);
 
   xmtted_fraction = (double) (sim_data->call_arrival_count -
       sim_data->blocked_call_count)/sim_data->call_arrival_count;
 
-  printf("%.5f \t%.5f \t\t",
-	 1-xmtted_fraction, xmtted_fraction);
-
-  // printf("%f, %li\n", sim_data->accumulated_call_time, sim_data->call_arrival_count);
+  double dropped = (double) sim_data->dropped_calls/ (double) sim_data->call_arrival_count;
+  printf("%E\t\t", dropped);
+  printf("%E\t\t", sim_data->wait_time/sim_data->call_arrival_count);
   double average_call_time = (double) sim_data->accumulated_call_time/(double) sim_data->number_of_calls_processed;
   double offered_load = average_call_time * arrival_rate;
-  printf("%.5f\n", offered_load);
+  printf("%E\n", offered_load);
 
 
 }
