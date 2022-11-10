@@ -154,7 +154,6 @@ transmission_end_event(Simulation_Run_Ptr simulation_run, void * packet)
        backoff, and try again. */
 
     this_packet->collision_count++;
-    this_packet->status = WAITING;
 
     TRACE(printf("Collision. Collision count = %i\n",
 		 this_packet->collision_count););
@@ -164,7 +163,14 @@ transmission_end_event(Simulation_Run_Ptr simulation_run, void * packet)
       set_channel_state(channel, IDLE);
     }
 
-    backoff_duration = uniform_generator() * pow(2.0, this_packet->collision_count);
+    if (this_packet->station_id == 0){
+      backoff_duration = 0;
+      // printf("backoff_duration = %f\n", backoff_duration);
+    } else {
+      backoff_duration = uniform_generator() * pow(2.0, this_packet->collision_count);
+      this_packet->status = WAITING;
+      // printf("backoff_duration = %f\n", backoff_duration);
+    }
 
     schedule_transmission_start_event(simulation_run,
 				      now + backoff_duration,
