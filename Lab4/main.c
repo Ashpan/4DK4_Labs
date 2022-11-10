@@ -95,7 +95,7 @@ main(void)
       }
 
       /* Print out some results. */
-      output_results_excel(simulation_run, arrival_rate);
+      output_results(simulation_run);
 
       /* Clean up memory. */
       cleanup(simulation_run);

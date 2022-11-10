@@ -80,9 +80,19 @@ packet_arrival_event(Simulation_Run_Ptr simulation_run, void* dummy_ptr)
 
   /* If this is the only packet at the station, transmit it (i.e., the
      ALOHA protocol). It stays in the queue either way. */
-  if(fifoqueue_size(stn_buffer) == 1) {
-    /* Transmit the packet. */
-    schedule_transmission_start_event(simulation_run, now, (void *) new_packet);
+
+  Time previous_slot = (int)(now/SLOT_INTERVAL)*SLOT_INTERVAL;
+  Time next_slot = previous_slot + SLOT_INTERVAL;
+
+  // If it is the beginning of the slot +- epsilon, then transmit it
+  int in_previous_slot = now <= previous_slot + EPSILON && now >= previous_slot - EPSILON;
+  int in_next_slot = now <= next_slot + EPSILON && now >= next_slot - EPSILON;
+  if (fifoqueue_size(stn_buffer) == 1) {
+    if (in_previous_slot || in_next_slot) {
+      schedule_transmission_start_event(simulation_run, now, new_packet);
+    } else {
+      schedule_transmission_start_event(simulation_run, next_slot, new_packet);
+    }
   }
 
   /* Schedule the next packet arrival. */
