@@ -80,8 +80,30 @@ packet_arrival_event(Simulation_Run_Ptr simulation_run, void* dummy_ptr)
   /* If this is the only packet at the station, transmit it (i.e., the
      ALOHA protocol). It stays in the queue either way. */
   if(fifoqueue_size(stn_buffer) == 1) {
-    /* Transmit the packet. */
-    schedule_transmission_start_event(simulation_run, now, (void *) new_packet);
+      // Calculate whether we are in an 'guard time' in between slots
+      // Take current time mod SLOT_TIMEFRAME to find the how far off we are from the 
+      // next slot
+      int modRes = (int)(now) % SLOT_TIMEFRAME;
+      // If the next slot or previous slot is +- EPISILON, then we are in 'guard time'
+      // and can schedule transmission of the next event
+      if ((modRes <= EPSILON) || (modRes >= (SLOT_TIMEFRAME - EPSILON))) {
+        schedule_transmission_start_event(simulation_run,
+					now,
+					(void*) new_packet);
+      } else {
+        // We did not hit a proper guard time, we could not transmit
+        new_packet->status = WAITING;
+        data->number_of_missed_slots++;
+
+        // Set backoff duration to the delta our next slot timeframe
+        // e.g. if packet arrived at t = 123s and slot timeframe is every 2s, then
+        // backoff the packet for 1s so it arrives at next slot of t = 124s;
+        int backoff_duration = SLOT_TIMEFRAME - modRes;
+
+        schedule_transmission_start_event(simulation_run,
+				      now + backoff_duration,
+				      (void *) new_packet);
+      }
   }
 
   /* Schedule the next packet arrival. */

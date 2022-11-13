@@ -143,15 +143,13 @@ transmission_end_event(Simulation_Run_Ptr simulation_run, void * packet)
     if(fifoqueue_size(buffer) > 0) {
       next_packet = fifoqueue_see_front(buffer);
 
-      int modRes = 0;
       // Calculate whether we are in an 'guard time' in between slots
       // Take current time mod SLOT_TIMEFRAME to find the how far off we are from the 
       // next slot
-      modRes = (int)(now) % SLOT_TIMEFRAME;
+      int modRes = (int)(now) % SLOT_TIMEFRAME;
       // If the next slot or previous slot is +- EPISILON, then we are in 'guard time'
       // and can schedule transmission of the next event
-      // if ((modRes <= EPSILON) || (modRes >= (SLOT_TIMEFRAME - EPSILON))) {
-      if (modRes <= EPSILON) {
+      if ((modRes <= EPSILON) || (modRes >= (SLOT_TIMEFRAME - EPSILON))) {
         schedule_transmission_start_event(simulation_run,
 					now,
 					(void*) next_packet);

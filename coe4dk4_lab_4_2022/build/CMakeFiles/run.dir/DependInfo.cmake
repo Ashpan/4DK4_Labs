@@ -4,14 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/channel.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/channel.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/cleanup.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/cleanup.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/main.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/main.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/output.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/output.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/packet_arrival.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_arrival.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/packet_duration.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_duration.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/packet_transmission.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_transmission.c.o"
-  "/media/psf/Home/Documents/coe4dk4_lab_4_2022/simlib.c" "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/simlib.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/channel.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/channel.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/cleanup.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/cleanup.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/main.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/main.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/output.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/output.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/packet_arrival.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_arrival.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/packet_duration.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_duration.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/packet_transmission.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/packet_transmission.c.o"
+  "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/simlib.c" "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/CMakeFiles/run.dir/simlib.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

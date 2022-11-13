@@ -1,4 +1,4 @@
-# Install script for directory: /media/psf/Home/Documents/coe4dk4_lab_4_2022
+# Install script for directory: /media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/media/psf/Home/Documents/coe4dk4_lab_4_2022/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/media/psf/Home/Downloads/4DK4_Labs/coe4dk4_lab_4_2022/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

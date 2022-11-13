@@ -31,7 +31,7 @@
 #define MEAN_PACKET_DURATION 1      /* normalized packet Tx time */
 #define PACKET_ARRIVAL_RATE 0.1     /* packets per Tx time */
 #define MEAN_BACKOFF_DURATION 10    /* in units of packet transmit time, Tx */
-#define RUNLENGTH 70000000
+#define RUNLENGTH 700000
 #define BLIPRATE 100000
 
 #define SLOT_TIMEFRAME (2u) // Split our time into 10s slots 
