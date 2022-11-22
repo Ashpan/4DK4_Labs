@@ -34,7 +34,7 @@ void
 packet_arrival_event(Simulation_Run_Ptr, void *);
 
 long int
-schedule_packet_arrival_event(Simulation_Run_Ptr, Time);
+schedule_packet_arrival_event(Simulation_Run_Ptr, Time, float);
 
 /*******************************************************************************/
 

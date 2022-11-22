@@ -60,7 +60,7 @@ output_blip_to_screen(Simulation_Run_Ptr simulation_run)
 
 /**********************************************************************/
 
-void output_results(Simulation_Run_Ptr this_simulation_run)
+void output_results(Simulation_Run_Ptr this_simulation_run, float arrival_rate)
 {
   int i;
   double xmtted_fraction;
@@ -101,6 +101,41 @@ void output_results(Simulation_Run_Ptr this_simulation_run)
   }
   printf("\n\n");
 }
+//*********************************************************************************
+void output_results_excel(Simulation_Run_Ptr this_simulation_run, float arrival_rate)
+{
+  int i;
+  Simulation_Run_Data_Ptr sim_data;
 
+  sim_data = (Simulation_Run_Data_Ptr) simulation_run_data(this_simulation_run);
+
+  //arrival rate
+  printf("%f,", arrival_rate);
+
+  //mean backoff duration
+  printf("%d,", MEAN_BACKOFF_DURATION);
+
+  //mean delay
+  printf("%.1f,",
+	 sim_data->accumulated_delay/sim_data->number_of_packets_processed);
+
+  //mean collisions per packet
+  printf("%.3f,",
+	 (double) sim_data->number_of_collisions /
+	 sim_data->number_of_packets_processed);
+
+  //mean delay per station
+  for(i=0; i<NUMBER_OF_STATIONS; i++) {
+
+    printf("%8.1f",
+	   (sim_data->stations+i)->accumulated_delay /
+	   (sim_data->stations+i)->packet_count);
+    if(i < NUMBER_OF_STATIONS-1) {
+      printf(",");
+    } else {
+      printf("\n");
+    }
+  }
+}
 
 

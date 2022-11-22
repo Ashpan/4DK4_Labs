@@ -29,17 +29,17 @@
 #include "packet_arrival.h"
 
 /*******************************************************************************/
-
+float current_arrival_rate;
 long int
 schedule_packet_arrival_event(Simulation_Run_Ptr simulation_run,
-			      Time event_time)
+			      Time event_time, float arrival_rate)
 {
   Event event;
 
   event.description = "Packet Arrival";
   event.function = packet_arrival_event;
   event.attachment = NULL;
-
+  current_arrival_rate = arrival_rate;
   return simulation_run_schedule_event(simulation_run, event, event_time);
 }
 
@@ -108,7 +108,7 @@ packet_arrival_event(Simulation_Run_Ptr simulation_run, void* dummy_ptr)
 
   /* Schedule the next packet arrival. */
   schedule_packet_arrival_event(simulation_run, 
-		now + exponential_generator((double) 1/PACKET_ARRIVAL_RATE));
+		now + exponential_generator((double) 1/current_arrival_rate), current_arrival_rate);
 }
 
 
